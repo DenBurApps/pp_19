@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:pp_19/business/helpers/image/image_helper.dart';
 import 'package:pp_19/business/helpers/text_helper.dart';
 
@@ -43,13 +44,7 @@ class PrivacyTermsView extends StatelessWidget {
                 ]),
               ),
               const SizedBox(height: 10),
-              Text(
-                isTerms ? TextHelper.terms : TextHelper.privacy,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall!
-                    .copyWith(color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5)),
-              )
+              MarkdownBody(data: isTerms ? TextHelper.terms : TextHelper.privacy)
             ],
           ),
         ]),

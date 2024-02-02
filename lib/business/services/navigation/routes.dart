@@ -10,6 +10,7 @@ import 'package:pp_19/presentation/screens/main_view.dart';
 import 'package:pp_19/presentation/screens/new_transaction_view.dart';
 import 'package:pp_19/presentation/screens/onboarding_view.dart';
 import 'package:pp_19/presentation/screens/privacy_temrs_view.dart';
+import 'package:pp_19/presentation/screens/privacy_view.dart';
 import 'package:pp_19/presentation/screens/quiz_view.dart';
 import 'package:pp_19/presentation/screens/settings_view.dart';
 import 'package:pp_19/presentation/screens/splash_view.dart';
@@ -52,7 +53,8 @@ class Routes {
       RouteNames.quiz: (context) {
         final controller = ModalRoute.of(context)!.settings.arguments as CourseController;
         return QuizzesView(controller: controller);
-      }
+      }, 
+      RouteNames.privacy:(context) => const  PrivacyView(), 
     };
   }
 }
