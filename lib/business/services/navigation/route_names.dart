@@ -14,4 +14,5 @@ class RouteNames {
   static const lessonsList = '/lessons_list';
   static const lesson = '/lesson';
   static const quiz = '/quiz';
+  static const privacy = '/privacy';
 }
