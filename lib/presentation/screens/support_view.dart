@@ -27,8 +27,8 @@ class _SupportViewState extends State<SupportView> {
 
   void _sendMessage() {
     EmailHelper.launchEmailSubmission(
-      toEmail: 'dgimai@techfinance.online',
-      subject: 'User feedback',
+      toEmail: 'amanmansab1122@gmail.com',
+      subject: 'Connect with support',
       body: _messageController.text,
       errorCallback: () => _showDialog(text: 'Error', isDone: false),
       doneCallback: () => _showDialog(text: 'Thank you for feedback!', isDone: true),
