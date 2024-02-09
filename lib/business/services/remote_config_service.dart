@@ -30,6 +30,5 @@ class RemoteConfigService {
 }
 
 enum ConfigKey {
-  privacyLink,
-  coinApiKey,
+  privacyLink
 }

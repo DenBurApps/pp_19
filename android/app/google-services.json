@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:541176637933:android:4c941d100493a48bf95fe4",
+        "mobilesdk_app_id": "1:541176637933:android:66ee80f720e18a75f95fe4",
         "android_client_info": {
-          "package_name": "com.example.pp_19"
+          "package_name": "com.finap1.pzapp19"
         }
       },
       "oauth_client": [],

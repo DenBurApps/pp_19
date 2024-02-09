@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyD1UicM0dmXgn2mPEbMKusKAgaVdv8OGKc</string>
+	<string>AIzaSyDn-YdXolxcd4lOvxQhvQZl-jA4w2DDofw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>799413586832</string>
+	<string>541176637933</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.pp19</string>
+	<string>com.finap1.pzapp19</string>
 	<key>PROJECT_ID</key>
-	<string>pp19-e6781</string>
+	<string>walletador-savingapp-pp19</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pp19-e6781.appspot.com</string>
+	<string>walletador-savingapp-pp19.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:799413586832:ios:c77058d2b38eb9dfc74115</string>
+	<string>1:541176637933:ios:183b869bcecf8706f95fe4</string>
 </dict>
 </plist>

@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBCuOyoW9g5xkqaGcSMxlWOZbMi_Bm4phc',
-    appId: '1:541176637933:android:4c941d100493a48bf95fe4',
+    appId: '1:541176637933:android:66ee80f720e18a75f95fe4',
     messagingSenderId: '541176637933',
     projectId: 'walletador-savingapp-pp19',
     storageBucket: 'walletador-savingapp-pp19.appspot.com',
@@ -59,10 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDn-YdXolxcd4lOvxQhvQZl-jA4w2DDofw',
-    appId: '1:541176637933:ios:25f04aac495f10c5f95fe4',
+    appId: '1:541176637933:ios:183b869bcecf8706f95fe4',
     messagingSenderId: '541176637933',
     projectId: 'walletador-savingapp-pp19',
     storageBucket: 'walletador-savingapp-pp19.appspot.com',
-    iosBundleId: 'com.example.pp19',
+    iosBundleId: 'com.finap1.pzapp19',
   );
 }
