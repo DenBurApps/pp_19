@@ -45,7 +45,7 @@ class _OnboardingViewState extends State<OnboardingView> {
     },
     4: {
       'title': 'Enjoy to the\ncourses!',
-      'subtitle': ' Our courses are carefully crafted by industry experts to ensure that the content is engaging, relevant, and up-to-date.'
+      'subtitle': 'Our courses are carefully crafted by industry experts to ensure that the content is engaging, relevant, and up-to-date.'
     },
   };
 

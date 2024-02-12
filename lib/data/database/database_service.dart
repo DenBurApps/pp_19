@@ -34,6 +34,8 @@ class DatabaseService {
     _transactions = await Hive.openBox('_transactions');
     _courses = await Hive.openBox('_courses');
 
+    _transactions.clear();
+
     setupWallet();
     setupCourse();
 

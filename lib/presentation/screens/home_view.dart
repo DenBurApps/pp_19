@@ -173,6 +173,11 @@ class _WalletWidgetState extends State<WalletWidget> with TickerProviderStateMix
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CupertinoButton(
+                  onPressed: state.allTransactions.isEmpty
+                      ? null
+                      : state.activeTab == 1
+                          ? widget.controller.toggleTab
+                          : null,
                   child: Row(
                     children: [
                       ImageHelper.svgImage(SvgNames.income),
@@ -186,11 +191,6 @@ class _WalletWidgetState extends State<WalletWidget> with TickerProviderStateMix
                       )
                     ],
                   ),
-                  onPressed: () {
-                    if (state.activeTab == 1) {
-                      widget.controller.toggleTab();
-                    }
-                  },
                 ),
                 SizedBox(
                   height: 26,
@@ -200,6 +200,11 @@ class _WalletWidgetState extends State<WalletWidget> with TickerProviderStateMix
                   ),
                 ),
                 CupertinoButton(
+                  onPressed: state.allTransactions.isEmpty
+                      ? null
+                      : state.activeTab == 0
+                      ? widget.controller.toggleTab
+                      : null,
                   child: Row(
                     children: [
                       ImageHelper.svgImage(SvgNames.outcome),
@@ -213,11 +218,6 @@ class _WalletWidgetState extends State<WalletWidget> with TickerProviderStateMix
                       )
                     ],
                   ),
-                  onPressed: () {
-                    if (state.activeTab == 0) {
-                      widget.controller.toggleTab();
-                    }
-                  },
                 ),
               ],
             ),

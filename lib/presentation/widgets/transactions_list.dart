@@ -29,16 +29,18 @@ class TransactionsList extends StatelessWidget {
                 height: 175,
                 child: ListView(
                   shrinkWrap: true,
-                  children: [...transactions.reversed.map((e) => TransactionContainer(transaction: e))],
+                  children: [
+                    ...transactions.reversed.map((e) => TransactionContainer(transaction: e))
+                  ],
                 ),
               )
             : Center(
                 child: Text(
                   'Enter your first transaction',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      color: darkMode
+                          ? Theme.of(context).colorScheme.onPrimary
+                          : Theme.of(context).colorScheme.onBackground),
                 ),
               ),
       ),
