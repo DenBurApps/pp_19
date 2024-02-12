@@ -29,23 +29,23 @@ class _OnboardingViewState extends State<OnboardingView> {
   final Map<int, Map<String, String>> _stepsInfo = {
     0: {
       'title': 'Easy money,\neasy life!',
-      'subtitle': 'Lorem ipsum dolor sit amet consectetur. ut risus ut iaculis neque vitae arcu.'
+      'subtitle': 'Track your purchases in our app!'
     },
     1: {
       'title': 'Keep track of\nyour income\nand expenses!',
-      'subtitle': 'Lorem ipsum dolor sit amet consectetur.ut risus ut iaculis neque vitae arcu.'
+      'subtitle': 'By monitoring your income and expenses, you can gain insight into your spending habits, identify potential areas for improvement, and make informed decisions about your financial priorities.'
     },
     2: {
       'title': 'Analysis of\nfinances',
-      'subtitle': 'Lorem ipsum dolor sit amet consectetur.ut risus ut iaculis neque vitae arcu.'
+      'subtitle': 'Use your income and expense tracking data to set realistic financial goals. Whether it\'s saving for a big purchase, paying off debt, or building an emergency fund, having clear goals helps you stay focused and motivated.'
     },
     3: {
       'title': 'Join millions of\nusers',
-      'subtitle': 'Lorem ipsum dolor sit amet consectetur.ut risus ut iaculis neque vitae arcu.'
+      'subtitle': 'Join millions of users in our app to take control of your finances and achieve your financial goals! Our app provides a comprehensive set of tools and features to help you track income and expenses, create budgets, and make informed financial decisions.'
     },
     4: {
       'title': 'Enjoy to the\ncourses!',
-      'subtitle': 'Lorem ipsum dolor sit amet consectetur.ut risus ut iaculis neque vitae arcu.'
+      'subtitle': ' Our courses are carefully crafted by industry experts to ensure that the content is engaging, relevant, and up-to-date.'
     },
   };
 

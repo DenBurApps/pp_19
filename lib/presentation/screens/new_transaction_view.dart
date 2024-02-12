@@ -123,11 +123,6 @@ class _NewTransactionViewState extends State<NewTransactionView> {
 
     var _dateTimeDouble = DateTime.now();
 
-    void setDateTimeDouble(DateTime newDateTime) {
-      setState(() {
-        _dateTimeDouble = newDateTime;
-      });
-    }
 
     showCupertinoModalPopup(
         filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),

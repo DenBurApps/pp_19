@@ -30,7 +30,8 @@ dependencies:
 
   #statistic view
   fl_chart: ^0.66.0
-  webview_flutter_wkwebview: ^3.11.0
+
+  webview_flutter_wkwebview: ^3.10.2
   webview_flutter_android: ^3.14.0
   webview_flutter: ^4.5.0
   flutter_launcher_icons: ^0.13.1
