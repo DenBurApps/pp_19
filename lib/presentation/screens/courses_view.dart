@@ -43,84 +43,86 @@ class _CoursesViewState extends State<CoursesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: ValueListenableBuilder(
-          valueListenable: _courseController,
-          builder: (BuildContext context, CourseControllerState state, Widget? child) {
-            return Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-              color: Theme.of(context).colorScheme.background,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Column(
-                      children: [
-                        Text('Courses', style: Theme.of(context).textTheme.labelLarge),
-                        const SizedBox(height: 5),
-                        Text(
-                          'Financial Literacy',
-                          style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                              color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5)),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 27),
-                  Column(
-                    children: [
-                      Row(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: ValueListenableBuilder(
+            valueListenable: _courseController,
+            builder: (BuildContext context, CourseControllerState state, Widget? child) {
+              return Container(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                color: Theme.of(context).colorScheme.background,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Column(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Financial Literacy Study',
-                                  style: Theme.of(context).textTheme.labelMedium),
-                              const SizedBox(height: 5),
-                              Text(
-                                '${state.generalProgress}% about your progress',
-                                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground
-                                        .withOpacity(0.5)),
-                              )
-                            ],
-                          ),
-                          const Spacer(),
-                          ImageHelper.svgImage(SvgNames.study),
+                          Text('Courses', style: Theme.of(context).textTheme.labelLarge),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Financial Literacy',
+                            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                                color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5)),
+                          )
                         ],
                       ),
-                      const SizedBox(height: 15),
-                      FillableDivider(
-                        fillPercentage: state.generalProgress,
-                        width: double.infinity,
-                        color: Theme.of(context).extension<CustomColors>()!.lightGrey!,
-                        filledColor: Theme.of(context).extension<CustomColors>()!.cyan!,
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: state.courses.length,
-                        itemBuilder: (context, index) {
-                          final passedQuizzes = _calculatePassedQuizzes(state.courses[index]);
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            child: CourseCard(
-                              card: state.courses[index],
-                              index: index,
-                              onCardOpen: _openCard,
-                              passedQuizzes: passedQuizzes,
+                    ),
+                    const SizedBox(height: 27),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Financial Literacy Study',
+                                    style: Theme.of(context).textTheme.labelMedium),
+                                const SizedBox(height: 5),
+                                Text(
+                                  '${state.generalProgress}% about your progress',
+                                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground
+                                          .withOpacity(0.5)),
+                                )
+                              ],
                             ),
-                          );
-                        },
-                      )
-                    ],
-                  )
-                ],
-              ),
-            );
-          },
+                            const Spacer(),
+                            ImageHelper.svgImage(SvgNames.study),
+                          ],
+                        ),
+                        const SizedBox(height: 15),
+                        FillableDivider(
+                          fillPercentage: state.generalProgress,
+                          width: double.infinity,
+                          color: Theme.of(context).extension<CustomColors>()!.lightGrey!,
+                          filledColor: Theme.of(context).extension<CustomColors>()!.cyan!,
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: state.courses.length,
+                          itemBuilder: (context, index) {
+                            final passedQuizzes = _calculatePassedQuizzes(state.courses[index]);
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 20),
+                              child: CourseCard(
+                                card: state.courses[index],
+                                index: index,
+                                onCardOpen: _openCard,
+                                passedQuizzes: passedQuizzes,
+                              ),
+                            );
+                          },
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

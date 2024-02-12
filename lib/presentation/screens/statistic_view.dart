@@ -45,163 +45,165 @@ class _StatisticViewState extends State<StatisticView> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ValueListenableBuilder(
-        valueListenable: _statisticController,
-        builder: (BuildContext context, StatisticControllerState state, Widget? child) {
-          final Animation<double> incomeAnimation = Tween<double>(
-            begin: state.oldIncome,
-            end: state.newIncome,
-          ).animate(controller);
-
-          final Animation<double> outcomeAnimation = Tween<double>(
-            begin: state.oldOutcome,
-            end: state.newOutcome,
-          ).animate(controller);
-
-          return SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.only(left: 0, right: 0, top: 40),
-              color: Theme.of(context).colorScheme.background,
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Center(
-                  child: Text('Statistic', style: Theme.of(context).textTheme.labelLarge),
-                ),
-                const SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Center(
-                    child: DateSwitcher(
-                      selectedDate: _statisticController.activeDate,
-                      increaseAction: () {
-                        _statisticController.increaseMonth();
-                        controller.reset();
-                        controller.forward();
-                      },
-                      decreaseAction: () {
-                        _statisticController.decreaseMonth();
-                        controller.reset();
-                        controller.forward();
-                      },
-                      isFirstShowType: false,
+      body: SafeArea(
+        child: ValueListenableBuilder(
+          valueListenable: _statisticController,
+          builder: (BuildContext context, StatisticControllerState state, Widget? child) {
+            final Animation<double> incomeAnimation = Tween<double>(
+              begin: state.oldIncome,
+              end: state.newIncome,
+            ).animate(controller);
+        
+            final Animation<double> outcomeAnimation = Tween<double>(
+              begin: state.oldOutcome,
+              end: state.newOutcome,
+            ).animate(controller);
+        
+            return SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.only(left: 0, right: 0, ),
+                color: Theme.of(context).colorScheme.background,
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Center(
+                    child: Text('Statistic', style: Theme.of(context).textTheme.labelLarge),
+                  ),
+                  const SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Center(
+                      child: DateSwitcher(
+                        selectedDate: _statisticController.activeDate,
+                        increaseAction: () {
+                          _statisticController.increaseMonth();
+                          controller.reset();
+                          controller.forward();
+                        },
+                        decreaseAction: () {
+                          _statisticController.decreaseMonth();
+                          controller.reset();
+                          controller.forward();
+                        },
+                        isFirstShowType: false,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  height: 272,
-                  child: BarChartSample2(
-                    monthName:
-                        DateHelper.months[_statisticController.activeDate.month]!.substring(0, 3),
-                    transactions: [...state.incomes, ...state.outcomes],
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 272,
+                    child: BarChartSample2(
+                      monthName:
+                          DateHelper.months[_statisticController.activeDate.month]!.substring(0, 3),
+                      transactions: [...state.incomes, ...state.outcomes],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text('Overview', style: Theme.of(context).textTheme.labelMedium),
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          height: 131,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).extension<CustomColors>()!.incomeBg,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ImageHelper.svgImage(SvgNames.incomeIcon),
-                              const SizedBox(height: 7),
-                              Text('Income', style: Theme.of(context).textTheme.displayMedium),
-                              FittedBox(
-                                child: AnimatedBuilder(
-                                  animation: incomeAnimation,
-                                  builder: (BuildContext context, Widget? child) {
-                                    return Text('\$${incomeAnimation.value.toStringAsFixed(2)}',
-                                        style: Theme.of(context).textTheme.labelLarge);
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          height: 131,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).extension<CustomColors>()!.outcomeBg,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ImageHelper.svgImage(SvgNames.outcomeIcon),
-                              const SizedBox(height: 7),
-                              Text('Outcome', style: Theme.of(context).textTheme.displayMedium),
-                              FittedBox(
-                                child: AnimatedBuilder(
-                                  animation: outcomeAnimation,
-                                  builder: (BuildContext context, Widget? child) {
-                                    return Text(
-                                      '\$${outcomeAnimation.value.toStringAsFixed(2)}',
-                                      style: Theme.of(context).textTheme.labelLarge,
-                                    );
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text('Favourite category', style: Theme.of(context).textTheme.labelMedium),
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: SizedBox(
-                    height: 50,
-                    child: ListView(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
+                    child: Text('Overview', style: Theme.of(context).textTheme.labelMedium),
+                  ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        state.favoriteCategories.isEmpty
-                            ? Text(
-                                'Please, add at least one transaction',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              )
-                            : const SizedBox(),
-                        ...state.favoriteCategories.map((e) => Container(
-                              margin: const EdgeInsets.only(right: 25),
-                              child: CategoryItemCover(
-                                color: Theme.of(context).extension<CustomColors>()!.outcomeBg!,
-                                assetPath: e,
-                              ),
-                            ))
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            height: 131,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).extension<CustomColors>()!.incomeBg,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ImageHelper.svgImage(SvgNames.incomeIcon),
+                                const SizedBox(height: 7),
+                                Text('Income', style: Theme.of(context).textTheme.displayMedium),
+                                FittedBox(
+                                  child: AnimatedBuilder(
+                                    animation: incomeAnimation,
+                                    builder: (BuildContext context, Widget? child) {
+                                      return Text('\$${incomeAnimation.value.toStringAsFixed(2)}',
+                                          style: Theme.of(context).textTheme.labelLarge);
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            height: 131,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).extension<CustomColors>()!.outcomeBg,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ImageHelper.svgImage(SvgNames.outcomeIcon),
+                                const SizedBox(height: 7),
+                                Text('Outcome', style: Theme.of(context).textTheme.displayMedium),
+                                FittedBox(
+                                  child: AnimatedBuilder(
+                                    animation: outcomeAnimation,
+                                    builder: (BuildContext context, Widget? child) {
+                                      return Text(
+                                        '\$${outcomeAnimation.value.toStringAsFixed(2)}',
+                                        style: Theme.of(context).textTheme.labelLarge,
+                                      );
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 15)
-              ]),
-            ),
-          );
-        },
+                  const SizedBox(height: 20),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text('Favourite category', style: Theme.of(context).textTheme.labelMedium),
+                  ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SizedBox(
+                      height: 50,
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          state.favoriteCategories.isEmpty
+                              ? Text(
+                                  'Please, add at least one transaction',
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                )
+                              : const SizedBox(),
+                          ...state.favoriteCategories.map((e) => Container(
+                                margin: const EdgeInsets.only(right: 25),
+                                child: CategoryItemCover(
+                                  color: Theme.of(context).extension<CustomColors>()!.outcomeBg!,
+                                  assetPath: e,
+                                ),
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15)
+                ]),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

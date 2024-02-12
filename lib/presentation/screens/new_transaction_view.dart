@@ -293,72 +293,74 @@ class _NewTransactionViewState extends State<NewTransactionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         color: Theme.of(context).colorScheme.background,
         height: MediaQuery.of(context).size.height,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-            children: [
-              CupertinoButton(
-                padding: EdgeInsets.zero,
-                child: ImageHelper.svgImage(SvgNames.chevronLeft),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(right: 50),
-                child: Text(widget.transactionType == TransactionType.income ? 'Income' : 'Outcome',
-                    style: Theme.of(context).textTheme.labelLarge),
-              ),
-              const Spacer(),
-            ],
-          ),
-          Expanded(
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              children: items
-                  .map(
-                    (key, value) => MapEntry(
-                      key,
-                      SizedBox(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              key.capitalize,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium!
-                                  .copyWith(color: Theme.of(context).colorScheme.onBackground),
-                            ),
-                            const SizedBox(height: 17),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                for (var icon in items[key]!)
-                                  CupertinoButton(
-                                    padding: EdgeInsets.zero,
-                                    onPressed: () => _addTransaction(context, icon),
-                                    child: IconContainer(
-                                      transactionType: widget.transactionType,
-                                      svgPath: icon,
-                                      isSelected: icon == selectedIconPath,
-                                    ),
-                                  )
-                              ],
-                            ),
-                            const SizedBox(height: 29)
-                          ],
+        child: SafeArea(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(
+              children: [
+                CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: ImageHelper.svgImage(SvgNames.chevronLeft),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 50),
+                  child: Text(widget.transactionType == TransactionType.income ? 'Income' : 'Outcome',
+                      style: Theme.of(context).textTheme.labelLarge),
+                ),
+                const Spacer(),
+              ],
+            ),
+            Expanded(
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                children: items
+                    .map(
+                      (key, value) => MapEntry(
+                        key,
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                key.capitalize,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(color: Theme.of(context).colorScheme.onBackground),
+                              ),
+                              const SizedBox(height: 17),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  for (var icon in items[key]!)
+                                    CupertinoButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () => _addTransaction(context, icon),
+                                      child: IconContainer(
+                                        transactionType: widget.transactionType,
+                                        svgPath: icon,
+                                        isSelected: icon == selectedIconPath,
+                                      ),
+                                    )
+                                ],
+                              ),
+                              const SizedBox(height: 29)
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                  .values
-                  .toList(),
+                    )
+                    .values
+                    .toList(),
+              ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }
