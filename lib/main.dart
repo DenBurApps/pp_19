@@ -21,7 +21,7 @@ Future<void> main() async {
     DeviceOrientation.portraitUp, 
     DeviceOrientation.portraitDown, 
   ]);
-  runApp(const SportQuiz());
+  runApp(const WalleTadorSavingAPP());
 
 }
 
@@ -44,8 +44,8 @@ Future<void> _initApp() async {
  
 }
 
-class SportQuiz extends StatelessWidget {
-  const SportQuiz({super.key});
+class WalleTadorSavingAPP extends StatelessWidget {
+  const WalleTadorSavingAPP({super.key});
 
   @override
   Widget build(BuildContext context) {
