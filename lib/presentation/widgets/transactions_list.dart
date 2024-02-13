@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pp_19/business/helpers/date_parser.dart';
 import 'package:pp_19/data/entity/transaction_entity.dart';
@@ -63,7 +62,7 @@ class TransactionContainer extends StatelessWidget {
       ),
       child: ListTile(
         leading: CategoryItemCover(
-            color: Theme.of(context).colorScheme.onPrimary!,
+            color: Theme.of(context).colorScheme.onPrimary,
             assetPath: transaction.category.svgPath),
         title: Text(
           transaction.category.name,
