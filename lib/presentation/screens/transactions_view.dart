@@ -6,7 +6,7 @@ import 'package:pp_19/presentation/widgets/date_switcher.dart';
 import 'package:pp_19/presentation/widgets/transactions_list.dart';
 
 class TransactionsView extends StatefulWidget {
-  TransactionsView({super.key});
+ const  TransactionsView({super.key});
 
   @override
   State<TransactionsView> createState() => _TransactionsViewState();
