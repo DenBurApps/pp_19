@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_19/business/helpers/dialog_helper.dart';
@@ -159,8 +158,8 @@ class _PrivacyViewState extends State<PrivacyView> {
                             width: constraints.maxWidth * 0.9,
                             height: 60,
                             child: AppButton(
-                              backgroundColor: Theme.of(context).colorScheme.primary,
-                              textColor: Theme.of(context).colorScheme.onPrimary,
+                              backgroundColor: Theme.of(context).colorScheme.onBackground,
+                              textColor: Theme.of(context).colorScheme.background,
                               callback: _accept,
                               name: 'Agree with privacy',
                             ),
