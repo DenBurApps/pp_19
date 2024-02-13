@@ -104,121 +104,123 @@ class _WalletViewState extends State<WalletView> {
     }
 
     return Scaffold(
-      body: ValueListenableBuilder(
-          valueListenable: walletController,
-          builder: (BuildContext context, WalletControllerState state, Widget? child) {
-            return Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-              color: Theme.of(context).colorScheme.background,
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      CupertinoButton(
-                        padding: EdgeInsets.zero,
-                        child: ImageHelper.svgImage(SvgNames.chevronLeft),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 50),
-                        child: Text('Wallet', style: Theme.of(context).textTheme.labelLarge),
-                      ),
-                      const Spacer(),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Text('Your budget', style: Theme.of(context).textTheme.labelMedium),
-                  const SizedBox(height: 20),
-                  Container(
-                    height: 76,
-                    padding: const EdgeInsets.only(top: 15, bottom: 15, left: 25, right: 20),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).extension<CustomColors>()!.incomeBg,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Row(
+      body: SafeArea(
+        child: ValueListenableBuilder(
+            valueListenable: walletController,
+            builder: (BuildContext context, WalletControllerState state, Widget? child) {
+              return Container(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                color: Theme.of(context).colorScheme.background,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        Text.rich(TextSpan(
-                            text: '\$$wholePart.',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(fontSize: 40, fontWeight: FontWeight.w700),
-                            children: [
-                              TextSpan(
-                                  text: fractionalPart.toString().split('.')[1].substring(0, 2),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium!
-                                      .copyWith(fontSize: 20, fontWeight: FontWeight.w600))
-                            ])),
-                        const Spacer(),
                         CupertinoButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () => _editBudget(context),
-                          child: ImageHelper.svgImage(SvgNames.note),
+                          child: ImageHelper.svgImage(SvgNames.chevronLeft),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 50),
+                          child: Text('Wallet', style: Theme.of(context).textTheme.labelLarge),
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text('Your budget', style: Theme.of(context).textTheme.labelMedium),
+                    const SizedBox(height: 20),
+                    Container(
+                      height: 76,
+                      padding: const EdgeInsets.only(top: 15, bottom: 15, left: 25, right: 20),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).extension<CustomColors>()!.incomeBg,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        children: [
+                          Text.rich(TextSpan(
+                              text: '\$$wholePart.',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(fontSize: 40, fontWeight: FontWeight.w700),
+                              children: [
+                                TextSpan(
+                                    text: fractionalPart.toString().split('.')[1].substring(0, 2),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium!
+                                        .copyWith(fontSize: 20, fontWeight: FontWeight.w600))
+                              ])),
+                          const Spacer(),
+                          CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () => _editBudget(context),
+                            child: ImageHelper.svgImage(SvgNames.note),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text('Add income/expenses', style: Theme.of(context).textTheme.labelMedium),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: CupertinoButton(
+                            padding: const EdgeInsets.all(20),
+                            borderRadius: BorderRadius.circular(30),
+                            color: Theme.of(context).extension<CustomColors>()!.incomeBg,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ImageHelper.svgImage(SvgNames.incomeIcon),
+                                const SizedBox(height: 27),
+                                Text('Income', style: Theme.of(context).textTheme.labelLarge)
+                              ],
+                            ),
+                            onPressed: () => Navigator.of(context).pushNamed(
+                                RouteNames.newTransaction,
+                                arguments: TransactionType.income),
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child: CupertinoButton(
+                            padding: const EdgeInsets.all(20),
+                            borderRadius: BorderRadius.circular(30),
+                            color: Theme.of(context).extension<CustomColors>()!.outcomeBg,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ImageHelper.svgImage(SvgNames.outcomeIcon),
+                                const SizedBox(height: 27),
+                                Text('Outcome', style: Theme.of(context).textTheme.labelLarge)
+                              ],
+                            ),
+                            onPressed: () => Navigator.of(context).pushNamed(
+                                RouteNames.newTransaction,
+                                arguments: TransactionType.outcome),
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text('Add income/expenses', style: Theme.of(context).textTheme.labelMedium),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: CupertinoButton(
-                          padding: const EdgeInsets.all(20),
-                          borderRadius: BorderRadius.circular(30),
-                          color: Theme.of(context).extension<CustomColors>()!.incomeBg,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ImageHelper.svgImage(SvgNames.incomeIcon),
-                              const SizedBox(height: 27),
-                              Text('Income', style: Theme.of(context).textTheme.labelLarge)
-                            ],
-                          ),
-                          onPressed: () => Navigator.of(context).pushNamed(
-                              RouteNames.newTransaction,
-                              arguments: TransactionType.income),
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      Expanded(
-                        child: CupertinoButton(
-                          padding: const EdgeInsets.all(20),
-                          borderRadius: BorderRadius.circular(30),
-                          color: Theme.of(context).extension<CustomColors>()!.outcomeBg,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ImageHelper.svgImage(SvgNames.outcomeIcon),
-                              const SizedBox(height: 27),
-                              Text('Outcome', style: Theme.of(context).textTheme.labelLarge)
-                            ],
-                          ),
-                          onPressed: () => Navigator.of(context).pushNamed(
-                              RouteNames.newTransaction,
-                              arguments: TransactionType.outcome),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Text('Last operation', style: Theme.of(context).textTheme.labelMedium),
-                  const SizedBox(height: 20),
-                  TransactionsList(
-                    transactions: state.allTransactions,
-                    darkMode: true,
-                  )
-                ],
-              ),
-            );
-          }),
+                    const SizedBox(height: 20),
+                    Text('Last operation', style: Theme.of(context).textTheme.labelMedium),
+                    const SizedBox(height: 20),
+                    TransactionsList(
+                      transactions: state.allTransactions,
+                      darkMode: true,
+                    )
+                  ],
+                ),
+              );
+            }),
+      ),
     );
   }
 }

@@ -26,65 +26,67 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ValueListenableBuilder(
-          valueListenable: walletController,
-          builder: (BuildContext context, WalletControllerState state, Widget? child) {
-            return Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-              color: Theme.of(context).colorScheme.background,
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Welcome back!',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge!
-                        .copyWith(color: Theme.of(context).colorScheme.onBackground),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Check your balance',
-                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5)),
-                  ),
-                  const SizedBox(height: 20),
-                  WalletWidget(
-                    controller: walletController,
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Text('Your subscriptions', style: Theme.of(context).textTheme.labelMedium),
-                      const Spacer(),
-                      CupertinoButton(
-                        padding: EdgeInsets.zero,
-                        child: Text(
-                          'See all',
-                          style: Theme.of(context).textTheme.labelSmall,
+      body: SafeArea(
+        child: ValueListenableBuilder(
+            valueListenable: walletController,
+            builder: (BuildContext context, WalletControllerState state, Widget? child) {
+              return Container(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                color: Theme.of(context).colorScheme.background,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Welcome back!',
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(color: Theme.of(context).colorScheme.onBackground),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      'Check your balance',
+                      style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                          color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5)),
+                    ),
+                    const SizedBox(height: 20),
+                    WalletWidget(
+                      controller: walletController,
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Text('Your subscriptions', style: Theme.of(context).textTheme.labelMedium),
+                        const Spacer(),
+                        CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          child: Text(
+                            'See all',
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          onPressed: () => Navigator.of(context).pushNamed(RouteNames.transactions),
                         ),
-                        onPressed: () => Navigator.of(context).pushNamed(RouteNames.transactions),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  DateSwitcher(
-                    isFirstShowType: true,
-                    selectedDate: walletController.activeDate,
-                    increaseAction: () => walletController.increaseMonth(),
-                    decreaseAction: () => walletController.decreaseMonth(),
-                  ),
-                  const SizedBox(height: 20),
-                  TransactionsList(
-                    transactions: state.filteredTransactions,
-                    darkMode: true,
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              ),
-            );
-          }),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    DateSwitcher(
+                      isFirstShowType: true,
+                      selectedDate: walletController.activeDate,
+                      increaseAction: () => walletController.increaseMonth(),
+                      decreaseAction: () => walletController.decreaseMonth(),
+                    ),
+                    const SizedBox(height: 20),
+                    TransactionsList(
+                      transactions: state.filteredTransactions,
+                      darkMode: true,
+                    ),
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              );
+            }),
+      ),
     );
   }
 }

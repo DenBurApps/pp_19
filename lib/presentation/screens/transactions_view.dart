@@ -24,55 +24,57 @@ class _TransactionsViewState extends State<TransactionsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ValueListenableBuilder(
-        valueListenable: walletController,
-        builder: (BuildContext context, WalletControllerState state, Widget? child) {
-          return Container(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-            color: Theme.of(context).colorScheme.background,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      child: ImageHelper.svgImage(SvgNames.chevronLeft),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    const Spacer(),
-                    Text.rich(
-                      TextSpan(
-                        text: 'All subscriptions\n',
-                        style: Theme.of(context).textTheme.labelLarge,
-                        children: [
-                          TextSpan(
-                            text: 'Check your subscriptions',
-                            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                                color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5)),
-                          ),
-                        ],
+      body: SafeArea(
+        child: ValueListenableBuilder(
+          valueListenable: walletController,
+          builder: (BuildContext context, WalletControllerState state, Widget? child) {
+            return Container(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              color: Theme.of(context).colorScheme.background,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        child: ImageHelper.svgImage(SvgNames.chevronLeft),
+                        onPressed: () => Navigator.of(context).pop(),
                       ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                DateSwitcher(
-                  isFirstShowType: false,
-                  selectedDate: walletController.activeDate,
-                  increaseAction: () => walletController.increaseMonth(),
-                  decreaseAction: () => walletController.decreaseMonth(),
-                ),
-                const SizedBox(height: 10),
-                TransactionsList(
-                  transactions: state.allTransactions,
-                  darkMode: false,
-                )
-              ],
-            ),
-          );
-        },
+                      const Spacer(),
+                      Text.rich(
+                        TextSpan(
+                          text: 'All subscriptions\n',
+                          style: Theme.of(context).textTheme.labelLarge,
+                          children: [
+                            TextSpan(
+                              text: 'Check your subscriptions',
+                              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                                  color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5)),
+                            ),
+                          ],
+                        ),
+                        textAlign: TextAlign.right,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  DateSwitcher(
+                    isFirstShowType: false,
+                    selectedDate: walletController.activeDate,
+                    increaseAction: () => walletController.increaseMonth(),
+                    decreaseAction: () => walletController.decreaseMonth(),
+                  ),
+                  const SizedBox(height: 10),
+                  TransactionsList(
+                    transactions: state.allTransactions,
+                    darkMode: false,
+                  )
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

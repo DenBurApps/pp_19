@@ -88,64 +88,66 @@ class _OnboardingViewState extends State<OnboardingView> {
           image: images[currentStep].image,
           fit: BoxFit.cover,
         )),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        getStepInfo(currentStep)['title'] ?? 'Default title',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
-                            .copyWith(color: Theme.of(context).colorScheme.onBackground),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        getStepInfo(currentStep)['subtitle'] ?? 'Default Subtitle',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(color: Theme.of(context).colorScheme.onBackground),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 8),
-                AppButton(
-                  name: 'Get started',
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-                  backgroundColor: Colors.black,
-                  textColor: Colors.white,
-                  callback: increaseStep,
-                  width: double.infinity,
-                ),
-                currentStep == 0
-                    ? Center(
-                        child: CupertinoButton(
-                        onPressed: skip,
-                        child: Text(
-                          'Skip',
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          getStepInfo(currentStep)['title'] ?? 'Default title',
                           style: Theme.of(context)
                               .textTheme
-                              .labelSmall!
-                              .copyWith(color: Theme.of(context).colorScheme.onSecondary),
+                              .displayLarge!
+                              .copyWith(color: Theme.of(context).colorScheme.onBackground),
                         ),
-                      ))
-                    : const SizedBox(height: 50),
-              ],
+                        const SizedBox(height: 10),
+                        Text(
+                          getStepInfo(currentStep)['subtitle'] ?? 'Default Subtitle',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(color: Theme.of(context).colorScheme.onBackground),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 8),
+                  AppButton(
+                    name: 'Get started',
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                    backgroundColor: Colors.black,
+                    textColor: Colors.white,
+                    callback: increaseStep,
+                    width: double.infinity,
+                  ),
+                  currentStep == 0
+                      ? Center(
+                          child: CupertinoButton(
+                          onPressed: skip,
+                          child: Text(
+                            'Skip',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall!
+                                .copyWith(color: Theme.of(context).colorScheme.onSecondary),
+                          ),
+                        ))
+                      : const SizedBox(height: 50),
+                ],
+              ),
             ),
           ),
         ),

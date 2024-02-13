@@ -29,53 +29,55 @@ class LessonListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-        color: Theme.of(context).colorScheme.background,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Center(
-            child: Row(children: [
-              CupertinoButton(
-                padding: EdgeInsets.zero,
-                child: ImageHelper.svgImage(SvgNames.chevronLeft),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(right: 34),
-                child: Column(
-                  children: [
-                    Text('Courses', style: Theme.of(context).textTheme.labelLarge),
-                    const SizedBox(height: 5),
-                    Text(
-                      card.name,
-                      style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5)),
-                    )
-                  ],
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          color: Theme.of(context).colorScheme.background,
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Center(
+              child: Row(children: [
+                CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: ImageHelper.svgImage(SvgNames.chevronLeft),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-              ),
-              const Spacer(),
-            ]),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: card.lessons.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: LessonCard(
-                      lesson: card.lessons[index],
-                      quiz: card.quizzes[index],
-                      onTap: () => _selectLesson(context, index),
-                    ),
-                  );
-                }),
-          ),
-        ]),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 34),
+                  child: Column(
+                    children: [
+                      Text('Courses', style: Theme.of(context).textTheme.labelLarge),
+                      const SizedBox(height: 5),
+                      Text(
+                        card.name,
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                            color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5)),
+                      )
+                    ],
+                  ),
+                ),
+                const Spacer(),
+              ]),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: card.lessons.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: LessonCard(
+                        lesson: card.lessons[index],
+                        quiz: card.quizzes[index],
+                        onTap: () => _selectLesson(context, index),
+                      ),
+                    );
+                  }),
+            ),
+          ]),
+        ),
       ),
     );
   }
