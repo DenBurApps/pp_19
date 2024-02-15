@@ -26,16 +26,11 @@ class NewTransactionView extends StatefulWidget {
 class _NewTransactionViewState extends State<NewTransactionView> {
   late Map<String, List<String>> items = {};
   DateTime _dateTime = DateTime.now();
+  String selectedIconPath = '';
 
   final _nameController = TextEditingController();
   final _countController = TextEditingController();
-  final _dateTimeController = TextEditingController();
-
   final _walletController = WalletController();
-
-  String selectedIconPath = '';
-
-  // final DateFormat formatter = DateFormat('dd.MM.yy HH:mm');
 
   void changeIconPath(String path) {
     setState(() {
@@ -159,6 +154,7 @@ class _NewTransactionViewState extends State<NewTransactionView> {
                         keyboardType: TextInputType.number,
                         scrollPadding: EdgeInsets.zero,
                         maxLines: 1,
+                        maxLength: 8,
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
                         cursorColor: Theme.of(context).colorScheme.onBackground,
                         decoration: BoxDecoration(
@@ -227,6 +223,7 @@ class _NewTransactionViewState extends State<NewTransactionView> {
                         keyboardType: TextInputType.name,
                         scrollPadding: EdgeInsets.zero,
                         maxLines: 1,
+                        maxLength: 16,
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
                         cursorColor: Theme.of(context).colorScheme.onBackground,
                         decoration: BoxDecoration(

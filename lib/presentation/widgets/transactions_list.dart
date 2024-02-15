@@ -19,7 +19,7 @@ class TransactionsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: darkMode ? const EdgeInsets.symmetric(horizontal: 10) : null,
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: darkMode ? Theme.of(context).extension<CustomColors>()!.lighterBlack : null,
             borderRadius: BorderRadius.circular(20)),

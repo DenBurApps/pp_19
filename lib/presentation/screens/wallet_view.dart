@@ -59,6 +59,7 @@ class _WalletViewState extends State<WalletView> {
                       keyboardType: TextInputType.number,
                       scrollPadding: EdgeInsets.zero,
                       maxLines: 1,
+                      maxLength: 8,
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
                       cursorColor: Theme.of(context).colorScheme.onBackground,
                       decoration: BoxDecoration(
