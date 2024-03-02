@@ -50,7 +50,7 @@ class WalleTadorSavingAPP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'WalleTador SavingAPP',
+      title: 'Olymp Trade WalleTad SavingAPP',
       debugShowCheckedModeBanner: false,
       routes: Routes.get(context),
       initialRoute: RouteNames.splash,
