@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -72,6 +70,7 @@ class _SplashViewState extends State<SplashView> {
         final seenPrivacyAgreement =
             _databaseService.get(DatabaseKeys.seenPrivacyAgreement) ?? false;
         if (!seenPrivacyAgreement) {
+          _databaseService.put(DatabaseKeys.seenPrivacyAgreement, true);
           DialogHelper.showPrivacyAgreementDialog(
             context,
             yes: () => Navigator.of(context).pushReplacementNamed(
@@ -97,6 +96,8 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Scaffold(
+      backgroundColor: Color(0xFFE7F0FF),
+    );
   }
 }

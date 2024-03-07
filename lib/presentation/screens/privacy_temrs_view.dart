@@ -51,7 +51,7 @@ class _AgreementViewState extends State<AgreementView> {
                   if (_usePrivacyAgreement)
                     Text(
                       _title,
-                      style: Theme.of(context).textTheme.displayLarge,
+                      style: Theme.of(context).textTheme.labelLarge,
                     )
                   else
                     Row(
@@ -63,9 +63,9 @@ class _AgreementViewState extends State<AgreementView> {
                         ),
                         Text(
                           _title,
-                          style: Theme.of(context).textTheme.displayLarge,
+                          style: Theme.of(context).textTheme.labelLarge,
                         ),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 20),
                       ],
                     ),
                   const SizedBox(height: 15),

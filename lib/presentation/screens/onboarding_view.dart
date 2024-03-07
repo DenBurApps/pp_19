@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pp_19/business/helpers/dialog_helper.dart';
 import 'package:pp_19/business/helpers/image/image_helper.dart';
 import 'package:pp_19/business/services/navigation/route_names.dart';
 import 'package:pp_19/data/database/database_keys.dart';
 import 'package:pp_19/data/database/database_service.dart';
+import 'package:pp_19/models/arguments.dart';
+import 'package:pp_19/presentation/screens/privacy_temrs_view.dart';
 import 'package:pp_19/presentation/widgets/app_button.dart';
 
 class OnboardingView extends StatefulWidget {
@@ -33,19 +36,23 @@ class _OnboardingViewState extends State<OnboardingView> {
     },
     1: {
       'title': 'Keep track of\nyour income\nand expenses!',
-      'subtitle': 'By monitoring your income and expenses, you can gain insight into your spending habits, identify potential areas for improvement, and make informed decisions about your financial priorities.'
+      'subtitle':
+          'By monitoring your income and expenses, you can gain insight into your spending habits, identify potential areas for improvement, and make informed decisions about your financial priorities.'
     },
     2: {
       'title': 'Analysis of\nfinances',
-      'subtitle': 'Use your income and expense tracking data to set realistic financial goals. Whether it\'s saving for a big purchase, paying off debt, or building an emergency fund, having clear goals helps you stay focused and motivated.'
+      'subtitle':
+          'Use your income and expense tracking data to set realistic financial goals. Whether it\'s saving for a big purchase, paying off debt, or building an emergency fund, having clear goals helps you stay focused and motivated.'
     },
     3: {
       'title': 'Join millions of\nusers',
-      'subtitle': 'Join millions of users in our app to take control of your finances and achieve your financial goals! Our app provides a comprehensive set of tools and features to help you track income and expenses, create budgets, and make informed financial decisions.'
+      'subtitle':
+          'Join millions of users in our app to take control of your finances and achieve your financial goals! Our app provides a comprehensive set of tools and features to help you track income and expenses, create budgets, and make informed financial decisions.'
     },
     4: {
       'title': 'Enjoy to the\ncourses!',
-      'subtitle': 'Our courses are carefully crafted by industry experts to ensure that the content is engaging, relevant, and up-to-date.'
+      'subtitle':
+          'Our courses are carefully crafted by industry experts to ensure that the content is engaging, relevant, and up-to-date.'
     },
   };
 
@@ -60,21 +67,48 @@ class _OnboardingViewState extends State<OnboardingView> {
   }
 
   Map<String, String> getStepInfo(int step) {
-    return _stepsInfo[step] ?? {'title': 'Default Title', 'subtitle': 'Default Subtitle'};
+    return _stepsInfo[step] ??
+        {'title': 'Default Title', 'subtitle': 'Default Subtitle'};
   }
 
   void increaseStep() {
     if (currentStep == 3) {
-      Navigator.of(context).pushReplacementNamed(RouteNames.main);
-      return;
+      _databaseService.put(DatabaseKeys.seenPrivacyAgreement, true);
+      DialogHelper.showPrivacyAgreementDialog(
+        context,
+        yes: () => Navigator.of(context).pushReplacementNamed(
+          RouteNames.agreement,
+          arguments: const AgreementViewArguments(
+            agreementType: AgreementType.privacy,
+            usePrivacyAgreement: true,
+          ),
+        ),
+        no: () => Navigator.of(context).pushReplacementNamed(
+          RouteNames.main,
+        ),
+      );
+    } else {
+      setState(() {
+        currentStep += 1;
+      });
     }
-    setState(() {
-      currentStep += 1;
-    });
   }
 
   void skip() {
-    Navigator.of(context).pushReplacementNamed(RouteNames.main);
+    _databaseService.put(DatabaseKeys.seenPrivacyAgreement, true);
+    DialogHelper.showPrivacyAgreementDialog(
+      context,
+      yes: () => Navigator.of(context).pushReplacementNamed(
+        RouteNames.agreement,
+        arguments: const AgreementViewArguments(
+          agreementType: AgreementType.privacy,
+          usePrivacyAgreement: true,
+        ),
+      ),
+      no: () => Navigator.of(context).pushReplacementNamed(
+        RouteNames.main,
+      ),
+    );
   }
 
   @override
@@ -108,15 +142,22 @@ class _OnboardingViewState extends State<OnboardingView> {
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
-                              .copyWith(color: Theme.of(context).colorScheme.onBackground),
+                              .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          getStepInfo(currentStep)['subtitle'] ?? 'Default Subtitle',
+                          getStepInfo(currentStep)['subtitle'] ??
+                              'Default Subtitle',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
-                              .copyWith(color: Theme.of(context).colorScheme.onBackground),
+                              .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground),
                         ),
                       ],
                     ),
@@ -124,10 +165,8 @@ class _OnboardingViewState extends State<OnboardingView> {
                   SizedBox(height: MediaQuery.of(context).size.height / 8),
                   AppButton(
                     name: 'Get started',
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                    textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
                     backgroundColor: Colors.black,
                     textColor: Colors.white,
                     callback: increaseStep,
@@ -142,7 +181,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!
-                                .copyWith(color: Theme.of(context).colorScheme.onSecondary),
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary),
                           ),
                         ))
                       : const SizedBox(height: 50),
