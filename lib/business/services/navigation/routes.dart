@@ -31,30 +31,32 @@ class Routes {
       RouteNames.transactions: (context) => TransactionsView(),
       RouteNames.wallet: (context) => WalletView(),
       RouteNames.newTransaction: (context) {
-        final transactionType = ModalRoute.of(context)!.settings.arguments as TransactionType;
+        final transactionType =
+            ModalRoute.of(context)!.settings.arguments as TransactionType;
         return NewTransactionView(transactionType: transactionType);
       },
       RouteNames.statistic: (context) => const StatisticView(),
       RouteNames.settings: (context) => const SettingsView(),
       RouteNames.support: (context) => const SupportView(),
-      RouteNames.privacyAndTerms: (context) {
-        final isTerms = ModalRoute.of(context)!.settings.arguments as bool;
-        return PrivacyTermsView(isTerms: isTerms);
-      },
+      RouteNames.agreement: (context) => AgreementView.create(context),
       RouteNames.courses: (context) => const CoursesView(),
       RouteNames.lessonsList: (context) {
-        final args = ModalRoute.of(context)!.settings.arguments as LessonListViewArgs;
-        return LessonListView(card: args.card, courseController: args.courseController);
+        final args =
+            ModalRoute.of(context)!.settings.arguments as LessonListViewArgs;
+        return LessonListView(
+            card: args.card, courseController: args.courseController);
       },
       RouteNames.lesson: (context) {
-        final controller = ModalRoute.of(context)!.settings.arguments as CourseController;
+        final controller =
+            ModalRoute.of(context)!.settings.arguments as CourseController;
         return LessonView(courseController: controller);
       },
       RouteNames.quiz: (context) {
-        final controller = ModalRoute.of(context)!.settings.arguments as CourseController;
+        final controller =
+            ModalRoute.of(context)!.settings.arguments as CourseController;
         return QuizzesView(controller: controller);
-      }, 
-      RouteNames.privacy:(context) => const  PrivacyView(), 
+      },
+      RouteNames.privacy: (context) => const PrivacyView(),
     };
   }
 }

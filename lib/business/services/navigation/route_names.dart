@@ -9,7 +9,7 @@ class RouteNames {
   static const statistic = '/statistic';
   static const settings = '/settings';
   static const support = '/support';
-  static const privacyAndTerms = '/privacyAndTerms';
+  static const agreement = '/agreement';
   static const courses = '/courses';
   static const lessonsList = '/lessons_list';
   static const lesson = '/lesson';

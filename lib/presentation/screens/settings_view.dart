@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:pp_19/business/helpers/image/image_helper.dart';
 import 'package:pp_19/business/services/navigation/route_names.dart';
+import 'package:pp_19/models/arguments.dart';
+import 'package:pp_19/presentation/screens/privacy_temrs_view.dart';
 import 'package:pp_19/presentation/themes/custom_colors.dart';
 
 class SettingsView extends StatefulWidget {
@@ -40,10 +42,8 @@ class _SettingsViewState extends State<SettingsView> {
                 Center(
                   child: Text(
                     'Settings',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge!
-                        .copyWith(color: Theme.of(context).colorScheme.onBackground),
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground),
                   ),
                 ),
                 const Spacer(),
@@ -60,13 +60,22 @@ class _SettingsViewState extends State<SettingsView> {
                               child: CupertinoButton(
                                 padding: EdgeInsets.zero,
                                 minSize: 180,
-                                onPressed: () => Navigator.of(context).pushNamed(RouteNames.privacyAndTerms, arguments: false),
-                                color: Theme.of(context).extension<CustomColors>()!.outcomeBg,
+                                onPressed: () =>
+                                    Navigator.of(context).pushNamed(
+                                  RouteNames.agreement,
+                                  arguments: const AgreementViewArguments(
+                                    agreementType: AgreementType.privacy,
+                                  ),
+                                ),
+                                color: Theme.of(context)
+                                    .extension<CustomColors>()!
+                                    .outcomeBg,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                        child: ImageHelper.svgImage(SvgNames.privacy,
+                                        child: ImageHelper.svgImage(
+                                            SvgNames.privacy,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onBackground
@@ -74,11 +83,14 @@ class _SettingsViewState extends State<SettingsView> {
                                     const SizedBox(height: 10),
                                     Text(
                                       'Privacy policy',
-                                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground
-                                              .withOpacity(0.5)),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground
+                                                  .withOpacity(0.5)),
                                     )
                                   ],
                                 ),
@@ -89,13 +101,22 @@ class _SettingsViewState extends State<SettingsView> {
                               child: CupertinoButton(
                                 padding: EdgeInsets.zero,
                                 minSize: 180,
-                                onPressed: () => Navigator.of(context).pushNamed(RouteNames.privacyAndTerms, arguments: true),
-                                color: Theme.of(context).extension<CustomColors>()!.incomeBg,
+                                onPressed: () =>
+                                    Navigator.of(context).pushNamed(
+                                  RouteNames.agreement,
+                                  arguments: const AgreementViewArguments(
+                                    agreementType: AgreementType.terms,
+                                  ),
+                                ),
+                                color: Theme.of(context)
+                                    .extension<CustomColors>()!
+                                    .incomeBg,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                        child: ImageHelper.svgImage(SvgNames.terms,
+                                        child: ImageHelper.svgImage(
+                                            SvgNames.terms,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onBackground
@@ -103,11 +124,14 @@ class _SettingsViewState extends State<SettingsView> {
                                     const SizedBox(height: 10),
                                     Text(
                                       'Terms of use',
-                                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground
-                                              .withOpacity(0.5)),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground
+                                                  .withOpacity(0.5)),
                                     )
                                   ],
                                 ),
@@ -125,13 +149,17 @@ class _SettingsViewState extends State<SettingsView> {
                               child: CupertinoButton(
                                 padding: EdgeInsets.zero,
                                 minSize: 180,
-                                onPressed: () => Navigator.of(context).pushNamed(RouteNames.support),
-                                color: Theme.of(context).extension<CustomColors>()!.incomeBg,
+                                onPressed: () => Navigator.of(context)
+                                    .pushNamed(RouteNames.support),
+                                color: Theme.of(context)
+                                    .extension<CustomColors>()!
+                                    .incomeBg,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                        child: ImageHelper.svgImage(SvgNames.headphones,
+                                        child: ImageHelper.svgImage(
+                                            SvgNames.headphones,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onBackground
@@ -139,11 +167,14 @@ class _SettingsViewState extends State<SettingsView> {
                                     const SizedBox(height: 10),
                                     Text(
                                       'Support',
-                                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground
-                                              .withOpacity(0.5)),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground
+                                                  .withOpacity(0.5)),
                                     )
                                   ],
                                 ),
@@ -155,12 +186,15 @@ class _SettingsViewState extends State<SettingsView> {
                                 padding: EdgeInsets.zero,
                                 minSize: 180,
                                 onPressed: _requestReview,
-                                color: Theme.of(context).extension<CustomColors>()!.outcomeBg,
+                                color: Theme.of(context)
+                                    .extension<CustomColors>()!
+                                    .outcomeBg,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                        child: ImageHelper.svgImage(SvgNames.heart,
+                                        child: ImageHelper.svgImage(
+                                            SvgNames.heart,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onBackground
@@ -168,11 +202,14 @@ class _SettingsViewState extends State<SettingsView> {
                                     const SizedBox(height: 10),
                                     Text(
                                       'Rate app',
-                                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground
-                                              .withOpacity(0.5)),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground
+                                                  .withOpacity(0.5)),
                                     )
                                   ],
                                 ),

@@ -3,17 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_19/business/helpers/dialog_helper.dart';
-import 'package:pp_19/business/services/navigation/route_names.dart';
 import 'package:pp_19/business/services/remote_config_service.dart';
-import 'package:pp_19/data/database/database_keys.dart';
-import 'package:pp_19/data/database/database_service.dart';
-import 'package:pp_19/presentation/widgets/app_button.dart';
 import 'package:pp_19/presentation/widgets/loading_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
-
-
 
 void main() => runApp(const MaterialApp(home: PrivacyView()));
 
@@ -26,11 +20,9 @@ class PrivacyView extends StatefulWidget {
 
 class _PrivacyViewState extends State<PrivacyView> {
   late final WebViewController _controller;
-  final _databaseService = GetIt.I<DatabaseService>();
   final _remoteConfig = GetIt.I<RemoteConfigService>();
 
   var isLoading = true;
-  var agreeButton = false;
 
   String get _cssCode {
     if (Platform.isAndroid) {
@@ -56,15 +48,11 @@ class _PrivacyViewState extends State<PrivacyView> {
       document.head.appendChild(style);
     """;
 
-  bool _parseShowAgreeButton(String input) =>
-      input.contains('showAgreebutton') || input.contains('showAgreeButton');
-
   @override
   void initState() {
     super.initState();
 
-    final privacyLink = _remoteConfig.getString(ConfigKey.privacyLink);
-    setState(() => agreeButton = _parseShowAgreeButton(privacyLink));
+    final link = _remoteConfig.getString(ConfigKey.link);
 
     // #docregion platform_features
     late final PlatformWebViewControllerCreationParams params;
@@ -86,7 +74,6 @@ class _PrivacyViewState extends State<PrivacyView> {
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-          
           onProgress: (int progress) {
             log('WebView is loading (progress : $progress%)');
           },
@@ -111,9 +98,6 @@ class _PrivacyViewState extends State<PrivacyView> {
             }
           },
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.contains('showAgreebutton')) {
-              setState(() => agreeButton = true);
-            }
             log('allowing navigation to ${request.url}');
             return NavigationDecision.navigate;
           },
@@ -122,7 +106,7 @@ class _PrivacyViewState extends State<PrivacyView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(privacyLink));
+      ..loadRequest(Uri.parse(link));
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
@@ -138,43 +122,12 @@ class _PrivacyViewState extends State<PrivacyView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          agreeButton ? Colors.white : Theme.of(context).colorScheme.background,
+      backgroundColor: Colors.white,
       body: isLoading
-          ? const  LoadingWidget()
+          ? const LoadingWidget()
           : SafeArea(
-              child: Stack(
-                children: [
-                  WebViewWidget(controller: _controller),
-                  if (agreeButton)
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: LayoutBuilder(
-                          builder: (BuildContext context,
-                                  BoxConstraints constraints) =>
-                              SizedBox(
-                            width: constraints.maxWidth * 0.9,
-                            height: 60,
-                            child: AppButton(
-                              backgroundColor: Theme.of(context).colorScheme.onBackground,
-                              textColor: Theme.of(context).colorScheme.background,
-                              callback: _accept,
-                              name: 'Agree with privacy',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+              child: WebViewWidget(controller: _controller),
             ),
     );
-  }
-
-  void _accept() {
-    _databaseService.put(DatabaseKeys.acceptedPrivacy, true);
-    Navigator.of(context).pushReplacementNamed(RouteNames.onboarding);
   }
 }

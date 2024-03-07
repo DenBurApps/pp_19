@@ -9,8 +9,11 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_19/business/helpers/dialog_helper.dart';
 import 'package:pp_19/business/services/navigation/route_names.dart';
+import 'package:pp_19/business/services/remote_config_service.dart';
 import 'package:pp_19/data/database/database_keys.dart';
 import 'package:pp_19/data/database/database_service.dart';
+import 'package:pp_19/models/arguments.dart';
+import 'package:pp_19/presentation/screens/privacy_temrs_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -20,8 +23,11 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  final _remoteConfigService = GetIt.instance<RemoteConfigService>();
   final _databaseService = GetIt.instance<DatabaseService>();
   final _connectivity = Connectivity();
+
+  late bool usePrivacyAgreement;
 
   @override
   void initState() {
@@ -33,7 +39,7 @@ class _SplashViewState extends State<SplashView> {
     await _initConnectivity(
       () async => await DialogHelper.showNoInternetDialog(context),
     );
-
+    usePrivacyAgreement = _remoteConfigService.getBool(ConfigKey.usePrivacy);
     _navigate();
   }
 
@@ -55,23 +61,42 @@ class _SplashViewState extends State<SplashView> {
       return Future.value(null);
     }
   }
-  
+
   void _navigate() {
-    FlutterNativeSplash.remove();
-    final acceptedPrivacy =
-        _databaseService.get(DatabaseKeys.acceptedPrivacy) ?? false;
-    if (!acceptedPrivacy) {
-      Navigator.of(context).pushReplacementNamed(RouteNames.privacy);
-    } else {
+    if (usePrivacyAgreement) {
       final seenOnboarding =
           _databaseService.get(DatabaseKeys.seenOnboarding) ?? false;
-      Navigator.of(context).pushReplacementNamed(
-          !seenOnboarding ? RouteNames.onboarding : RouteNames.main);
+      if (!seenOnboarding) {
+        Navigator.of(context).pushReplacementNamed(RouteNames.onboarding);
+      } else {
+        final seenPrivacyAgreement =
+            _databaseService.get(DatabaseKeys.seenPrivacyAgreement) ?? false;
+        if (!seenPrivacyAgreement) {
+          DialogHelper.showPrivacyAgreementDialog(
+            context,
+            yes: () => Navigator.of(context).pushReplacementNamed(
+              RouteNames.agreement,
+              arguments: const AgreementViewArguments(
+                agreementType: AgreementType.privacy,
+                usePrivacyAgreement: true,
+              ),
+            ),
+            no: () => Navigator.of(context).pushReplacementNamed(
+              RouteNames.main,
+            ),
+          );
+        } else {
+          Navigator.of(context).pushReplacementNamed(RouteNames.main);
+        }
+      }
+    } else {
+      Navigator.of(context).pushReplacementNamed(RouteNames.privacy);
     }
+    FlutterNativeSplash.remove();
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Container();
+    return Container();
   }
 }
